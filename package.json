@@ -1,0 +1,48 @@
+{
+	"name": "demostore",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"type": "module",
+	"main": "./src/index.js",
+	"scripts": {
+		"dev": "stylelint \"./src/**/*.scss\" --fix & eslint ./src/ --fix & theme watch & NODE_ENV=development node esbuild.config.js ",
+		"build": "NODE_ENV=production node esbuild.config.js",
+		"pre-commit": "eslint ./src/ && stylelint \"./src/**/*.scss\"",
+		"prepare": "husky install && husky add .husky/pre-commit \"npm run pre-commit\""
+	},
+	"repository": {
+		"type": "git"
+	},
+	"author": "Andrii development",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.18.2",
+		"@babel/eslint-parser": "^7.18.2",
+		"autoprefixer": "^10.4.4",
+		"esbuild": "^0.14.27",
+		"esbuild-plugin-babel": "^0.2.3",
+		"esbuild-postcss": "0.0.4",
+		"esbuild-sass-plugin": "^2.2.5",
+		"eslint": "^8.16.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"postcss": "^8.4.12",
+		"prettier": "^2.6.2",
+		"stylelint": "^14.8.5",
+		"stylelint-config-recess-order": "^3.0.0",
+		"stylelint-config-standard-scss": "^3.0.0",
+		"stylelint-order": "^5.0.0",
+		"husky": "^8.0.0"
+	},
+	"dependencies": {
+		"@alpinejs/collapse": "^3.9.1",
+		"@alpinejs/intersect": "^3.9.1",
+		"alpinejs": "^3.9.1",
+		"animate.css": "^4.1.1",
+		"lazysizes": "^5.3.2",
+		"normalize.css": "^8.0.1",
+		"swiper": "^8.0.7",
+		"wowjs": "^1.1.3"
+	}
+}

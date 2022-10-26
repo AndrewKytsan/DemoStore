@@ -1,0 +1,7 @@
+development:
+    password: ${DEV_PASSWD}
+    theme_id: ${DEV_THEMEID}
+    store: ${DEV_SHOP}
+    ignore_files:
+        - config/settings_data.json
+        - templates/*.json

@@ -1,0 +1,95 @@
+{%- comment -%}
+
+    popup_id: {String} - used for opening and closing certain popup:
+
+    @click="showPopup = '{{- popup_id -}}'" event for opening,
+    @click="closePopup = '{{- popup_id -}}'" event for closing,
+
+    popup_title: {String} - sets title at the top of popup 
+
+    popup_classes: {String} - used for additional styles
+
+    popup_content: {Object} - used for content inside popup, can use any layout with capture declaration
+
+    popup_direction: {String} - used for showing popup direction, accepts: 'left', 'right', 'top', 'bottom', 'center'
+
+    popup_shadow: {Boolean} - accepts true or false to show shadow
+
+    popup_background: {String} - sets popup (content) background, white by default
+
+    popup_width: {String} - sets popup wrapper width, 500px by default
+
+    popup_height: {String} - sets popup wrapper height, 100vh by default
+
+    popup_close: {Boolean} - accepts true or false to show default close button
+
+    body_lock: {Boolean} - locks document body to prevent scrolling
+
+
+{%- endcomment -%}
+
+{%- liquid
+
+    assign popup_direction = popup_direction | default: 'left'
+    assign popup_width = popup_width | default: '500px'
+    assign popup_height = popup_height | default: '100vh'
+    assign popup_background = popup_background | default: '#fff'
+    assign popup_top = popup_top | default: '0'
+    assign popup_title = popup_title | default: ''
+
+    if popup_shadow != false
+        assign popup_shadow = true
+    endif
+
+    if body_lock != false
+        assign body_lock = true
+    endif
+
+    if popup_close != false
+        assign popup_close = true
+    endif
+
+-%}
+
+{% style %}
+
+#{{- popup_id -}} {
+    --popup-top-position: {{popup_top}};
+    --popup-width: {{popup_width}};
+    --popup-height: {{popup_height}};
+    --popup-background: {{popup_background}};
+}
+
+{% endstyle %}
+
+
+<div id="{{- popup_id -}}" class="popup {{ popup_classes }} {{popup_direction}}" data-lock="{{- body_lock -}}">
+
+    <div class="popup__wrapper {{popup_direction}}">
+        {% if popup_close or popup_title != ''  %}
+            <div class="popup__top">
+                {% if popup_close %}
+                    <button @click.stop="closePopup = '{{- popup_id -}}'" class="popup__close">
+                        <!-- put your icon/svg here -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 5L19 19M5 19L19 5" stroke="#2D2D2D"/>
+                        </svg>
+                    </button>
+                {% endif %}
+                {% if  popup_title != '' %}
+                    <h2 class="popup__title">
+                        {{- popup_title -}}
+                    </h2>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {{ popup_content }}
+        
+    </div>
+
+
+    <div {% if popup_shadow == false %} style="opacity: 0;" {% endif %} @click.stop="closePopup = '{{- popup_id -}}'" class="popup__background"></div>
+
+
+</div>
